@@ -520,9 +520,9 @@ public class Character extends AbstractCharacterObject {
         savedLocations = new SavedLocation[SavedLocationType.values().length];
 
         for (InventoryType type : InventoryType.values()) {
-            byte b = 24;
+            byte b = 96;
             if (type == InventoryType.CASH) {
-                b = 96;
+                b = (byte) 200;
             }
             inventory[type.ordinal()] = new Inventory(this, type, b);
         }
@@ -561,10 +561,10 @@ public class Character extends AbstractCharacterObject {
         ret.accountId = c.getAccID();
         ret.buddylist = new BuddyList(20);
         ret.mapleMount = null;
-        ret.getInventory(InventoryType.EQUIP).setSlotLimit(24);
-        ret.getInventory(InventoryType.USE).setSlotLimit(24);
-        ret.getInventory(InventoryType.SETUP).setSlotLimit(24);
-        ret.getInventory(InventoryType.ETC).setSlotLimit(24);
+        ret.getInventory(InventoryType.EQUIP).setSlotLimit(96);
+        ret.getInventory(InventoryType.USE).setSlotLimit(96);
+        ret.getInventory(InventoryType.SETUP).setSlotLimit(96);
+        ret.getInventory(InventoryType.ETC).setSlotLimit(96);
 
         // Select a keybinding method
         boolean useCustomKeySet = GameConfig.getServerBoolean("use_custom_keyset");
@@ -1987,7 +1987,8 @@ public class Character extends AbstractCharacterObject {
         }
 
         if (ob instanceof MapItem mapitem) {
-            if (System.currentTimeMillis() - mapitem.getDropTime() < 400 || !mapitem.canBePickedBy(this)) {
+            int petDelay = GameConfig.getServerInt("pet_pickup_delay_ms");
+            if (System.currentTimeMillis() - mapitem.getDropTime() < petDelay || !mapitem.canBePickedBy(this)) {
                 enableActions();
                 return;
             }
@@ -8149,12 +8150,12 @@ public class Character extends AbstractCharacterObject {
     }
 
     public byte getSlots(int type) {
-        return type == InventoryType.CASH.getType() ? 96 : inventory[type].getSlotLimit();
+        return type == InventoryType.CASH.getType() ? (byte) 200 : inventory[type].getSlotLimit();
     }
 
     public boolean canGainSlots(int type, int slots) {
         slots += inventory[type].getSlotLimit();
-        return slots <= 96;
+        return slots <= 200;
     }
 
     public boolean gainSlots(int type, int slots) {
