@@ -531,7 +531,8 @@ public final class CashOperationHandler extends AbstractPacketHandler {
     }
 
     private static boolean canBuy(Character chr, ModifiedCashItemDO item, int cash) {
-        if (item != null && item.isSelling() && item.getPrice() <= cash) {
+        boolean forceOnSale = GameConfig.getServerBoolean("use_cash_shop_force_on_sale");
+        if (item != null && (forceOnSale || item.isSelling()) && item.getPrice() <= cash) {
             log.info("玩家 {} 购买了现金道具 {} (SN {}) 花费 {}", chr, ItemInformationProvider.getInstance().getName(item.getItemId()), item.getSn(), item.getPrice());
             return true;
         } else {

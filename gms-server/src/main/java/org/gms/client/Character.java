@@ -522,7 +522,7 @@ public class Character extends AbstractCharacterObject {
         for (InventoryType type : InventoryType.values()) {
             byte b = 96;
             if (type == InventoryType.CASH) {
-                b = (byte) 200;
+                b = 127;
             }
             inventory[type.ordinal()] = new Inventory(this, type, b);
         }
@@ -8150,12 +8150,12 @@ public class Character extends AbstractCharacterObject {
     }
 
     public byte getSlots(int type) {
-        return type == InventoryType.CASH.getType() ? (byte) 200 : inventory[type].getSlotLimit();
+        return type == InventoryType.CASH.getType() ? (byte) 127 : inventory[type].getSlotLimit();
     }
 
     public boolean canGainSlots(int type, int slots) {
         slots += inventory[type].getSlotLimit();
-        return slots <= 200;
+        return slots <= 127;
     }
 
     public boolean gainSlots(int type, int slots) {

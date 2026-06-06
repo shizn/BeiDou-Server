@@ -111,7 +111,7 @@ public class Storage {
 
     public boolean canGainSlots(int slots) {
         slots += this.slots;
-        return slots <= 200;
+        return slots <= 127;
     }
 
     public boolean gainSlots(int slots) {
