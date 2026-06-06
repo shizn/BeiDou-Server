@@ -1316,18 +1316,19 @@ public abstract class AbstractDealDamageHandler extends AbstractPacketHandler {
      * @param chr
      */
     private static void detectionAttackInterval(Character chr, AttackInfo ret) {
+        int skill = ret.skill;
         //需要跳过检测的技能 比如弓箭手的暴风箭雨 火枪手的金属风暴
-        if (!SKIP_SKILL_ID_SET.contains(ret.skill)) {
-            long serverTime = System.currentTimeMillis();
+        if (!SKIP_SKILL_ID_SET.contains(skill)) {
+            // 1.11：按技能原子地更新并获取攻击间隔（修复并发竞争与每技能判定）
+            long interval = chr.updateLastAttackTimeAndGetInterval(skill, System.currentTimeMillis());
+            // 单机友好：封禁阈值由服务端配置 attack_interval_ms 决定；<=0 表示关闭攻击间隔检测
             int minInterval = GameConfig.getServerInt("attack_interval_ms");
-            if (serverTime - chr.getLastAttackTime() < minInterval) {
-                AutobanFactory.ATTACK_INTERVAL.addPoint(chr.getAutoBanManager(), "玩家" + chr.getName() + "地图ID：" + chr.getMapId() + "攻击间隔: " + (serverTime - chr.getLastAttackTime()));
-                log.warn("玩家{}地图ID：{}攻击间隔: {}", chr.getName(), chr.getMapId(), serverTime - chr.getLastAttackTime());
+            if (minInterval > 0 && interval < minInterval) {
+                AutobanFactory.ATTACK_INTERVAL.addPoint(chr.getAutoBanManager(), "玩家" + chr.getName() + "地图ID：" + chr.getMapId() + "攻击间隔: " + interval + "技能ID：" + skill);
+                log.warn("玩家{}地图ID：{}攻击间隔: {}技能ID：{}", chr.getName(), chr.getMapId(), interval, skill);
             }
-            chr.setLastAttackTime(serverTime);
         }
     }
-
     /**
      * 跳过攻击速度检测的技能ID
      */
