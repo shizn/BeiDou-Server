@@ -23,6 +23,16 @@ const GAME: AppRouteRecordRaw = {
       },
     },
     {
+      path: 'soloQol',
+      name: 'SoloQol',
+      component: () => import('@/views/game/soloQol/index.vue'),
+      meta: {
+        locale: 'menu.game.soloQol',
+        requiresAuth: true,
+        roles: ['admin'],
+      },
+    },
+    {
       path: 'cashShop',
       name: 'CashShop',
       component: () => import('@/views/game/cashShop/index.vue'),

@@ -10,6 +10,7 @@ import account from '@/views/account/locale/zh-CN';
 import login from '@/views/login/locale/zh-CN';
 import inventory from '@/views/game/inventory/locale/zh-CN';
 import autoban from '@/views/game/autoban/locale/zh-CN';
+import soloQol from '@/views/game/soloQol/locale/zh-CN';
 import baseConfig from './zh-CN/base';
 
 export default {
@@ -19,6 +20,7 @@ export default {
   'menu.dashboard.informationSearch': '资料查询',
   'menu.game': '游戏管理',
   'menu.game.config': '参数管理',
+  'menu.game.soloQol': '单机 QoL',
   'menu.game.npcShop': 'NPC商店',
   'menu.game.cashShop': '商城管理',
   'menu.game.drop': '怪物爆率',
@@ -27,7 +29,6 @@ export default {
   'menu.game.gachapon': '百宝箱',
   'menu.game.command': 'GM指令',
   'menu.game.file': '文件管理',
-  'menu.game.autoban': '自动封禁',
   'menu.account': '玩家管理',
   'menu.account.list': '账户列表',
   'menu.account.player': '玩家管理',
@@ -61,4 +62,5 @@ export default {
   ...inventory,
   ...config,
   ...autoban,
+  ...soloQol,
 };

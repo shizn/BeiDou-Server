@@ -10,6 +10,7 @@ import account from '@/views/account/locale/en-US';
 import login from '@/views/login/locale/en-US';
 import inventory from '@/views/game/inventory/locale/en-US';
 import autoban from '@/views/game/autoban/locale/en-US';
+import soloQol from '@/views/game/soloQol/locale/en-US';
 import base from './en-US/base';
 
 export default {
@@ -18,6 +19,7 @@ export default {
   'menu.dashboard.informationSearch': 'Information Search',
   'menu.game': 'Game',
   'menu.game.config': 'Config',
+  'menu.game.soloQol': 'Solo QoL',
   'menu.game.npcShop': 'NPC Shop',
   'menu.game.cashShop': 'Cash Shop',
   'menu.game.drop': 'Mob Drop',
@@ -26,7 +28,6 @@ export default {
   'menu.game.gachapon': 'Gachapon',
   'menu.game.command': 'Command',
   'menu.game.file': 'File',
-  'menu.game.autoban': 'Autoban',
   'menu.account': 'Account',
   'menu.account.list': 'Account List',
   'menu.account.player': 'Player',
@@ -58,4 +59,5 @@ export default {
   ...inventory,
   ...config,
   ...autoban,
+  ...soloQol,
 };
